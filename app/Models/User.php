@@ -12,34 +12,24 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
+    public static $TYPES = [self::USER_SUPER_ADMIN, self::USER_MANAGER, self::USER_STUDENT];
+    const USER_SUPER_ADMIN = "super_admin";
+    const USER_MANAGER = "manager";
+    const USER_STUDENT = "student";
     protected $fillable = [
         'name',
         'email',
         'password',
+        "access_level",
         "verified_code",
         "verified_at",
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

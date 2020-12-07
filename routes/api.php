@@ -60,5 +60,23 @@ Route::group([], function ($router) {
             "uses" => "UserController@changePassword",
             "as" => "user.change.password",
         ]);
+
+        $router->get("/manager/auth", [
+            "uses" => "UserController@manager",
+            "as" => "auth.manager",
+        ]);
+
+
+    });
+});
+
+
+Route::group([], function ($router) {
+    Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+        $router->get("/slideslist", [
+            "uses" => "SliderController@slideslist",
+            "as" => "slideslist.all",
+        ]);
+
     });
 });

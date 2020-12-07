@@ -62,4 +62,10 @@ class UserController extends Controller
         }
 
     }
+
+    public function manager(){
+        $user = auth()->user();
+        $user = $user->only(["id","name","access_level"]);
+        return response($user,Response::HTTP_OK);
+    }
 }
