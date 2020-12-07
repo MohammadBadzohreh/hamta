@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string("verified_code")->nullable();
             $table->timestamp('verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->enum("access_level", User::$TYPES)->default(User::USER_STUDENT);
             $table->rememberToken();
             $table->timestamps();
         });
