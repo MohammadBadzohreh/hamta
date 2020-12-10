@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangeEmailRequest;
 use App\Http\Requests\User\ChangeEmailSubmitRequest;
+use App\Http\Requests\User\getStudentListRequest;
+use App\Http\Requests\User\GetTeacherListRequest;
+use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -63,9 +66,28 @@ class UserController extends Controller
 
     }
 
-    public function manager(){
+    public function manager()
+    {
         $user = auth()->user();
-        $user = $user->only(["id","name","access_level"]);
-        return response($user,Response::HTTP_OK);
+        $user = $user->only(["id", "name", "access_level"]);
+        return response($user, Response::HTTP_OK);
+    }
+
+
+    public function studentList(getStudentListRequest $request)
+    {
+//        todo add grade to list and feilds
+        $students = User::query()->where("access_level", User::USER_STUDENT)
+            ->get(["id", "last_name", "first_name", "grade", "feild", "national_code"]);
+        return $students;
+
+    }
+
+    public function teacherList(GetTeacherListRequest $request)
+    {
+        $teachers = User::query()
+            ->where("access_level", User::USER_TEACHER)
+            ->get(["id","last_name","first_name","post"]);
+        return $teachers;
     }
 }

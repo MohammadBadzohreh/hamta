@@ -66,13 +66,25 @@ Route::group([], function ($router) {
             "as" => "auth.manager",
         ]);
 
+        $router->get("/manager/studentslist", [
+            "uses" => "UserController@studentList",
+            "as" => "student.list",
+        ]);
+
+
+        $router->get("/manager/teacherslist", [
+            "uses" => "UserController@teacherList",
+            "as" => "teacher.list",
+        ]);
+
 
     });
 });
 
+//slider routes
 
-Route::group([], function ($router) {
-    Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+    Route::group(["middleware" => ["auth:api"]], function ($router) {
         $router->get("/slideslist", [
             "uses" => "SliderController@slideslist",
             "as" => "slideslist.all",
@@ -80,3 +92,42 @@ Route::group([], function ($router) {
 
     });
 });
+//posts routes
+
+
+Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+    Route::group(["middleware" => ["auth:api"]], function ($router) {
+        $router->get("/postslist", [
+            "uses" => "PostController@postsList",
+            "as" => "post.list",
+        ]);
+
+    });
+
+});
+
+
+//school routes
+
+
+Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+    Route::group(["middleware:" => ["auth:api"]], function ($router) {
+        $router->get("/schoolInfo/{school}", [
+            "uses" => "SchoolController@info",
+            "as" => "school.name",
+        ]);
+    });
+});
+
+
+Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+    Route::group(["middleware" => ["auth:api"]], function ($router) {
+
+        $router->get("/manager/classeslist", [
+            "uses" => "ClassController@all",
+            "as" => "class.list",
+        ]);
+    });
+
+});
+

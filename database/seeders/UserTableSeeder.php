@@ -10,7 +10,8 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            "name" => "Mohammad",
+            "first_name" => "Mohammad",
+            "last_name" => "badzohreh",
             "email" => "badzohreee@gmail.com",
             "password" => '$2y$10$XDan7cWDE2ulaz2zaZSvvew4t4AuqLFyBwudW55ApYB5Op.R5CxKi',
             "access_level" => "manager",

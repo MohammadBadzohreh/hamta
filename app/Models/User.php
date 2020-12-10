@@ -13,10 +13,16 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
 
-    public static $TYPES = [self::USER_SUPER_ADMIN, self::USER_MANAGER, self::USER_STUDENT];
+    public static $TYPES = [
+        self::USER_SUPER_ADMIN,
+        self::USER_MANAGER,
+        self::USER_STUDENT,
+        self::USER_TEACHER
+    ];
     const USER_SUPER_ADMIN = "super_admin";
     const USER_MANAGER = "manager";
     const USER_STUDENT = "student";
+    const USER_TEACHER = "teacher";
     protected $fillable = [
         'name',
         'email',
@@ -24,6 +30,9 @@ class User extends Authenticatable
         "access_level",
         "verified_code",
         "verified_at",
+        "feild",
+        "grade",
+        "national_code",
     ];
 
     protected $hidden = [
