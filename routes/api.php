@@ -90,12 +90,26 @@ Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
             "as" => "slideslist.all",
         ]);
 
+        $router->post("/manager/addSlider", [
+            "uses" => "SliderController@add",
+            "as" => "slide.add",
+        ]);
+
+        $router->patch("/manager/slider/{id}", [
+            "uses" => "SliderController@edit",
+            "as" => "slide.edit",
+        ]);
+
     });
 });
 //posts routes
 
 
 Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
+    $router->get("/manager/viewpost/{id}",[
+        "uses" => "PostController@view",
+        "as" => "post.view",
+    ]);
     Route::group(["middleware" => ["auth:api"]], function ($router) {
         $router->get("/postslist", [
             "uses" => "PostController@postsList",
@@ -103,6 +117,7 @@ Route::group(["namespace" => "App\Http\Controllers"], function ($router) {
         ]);
 
     });
+
 
 });
 
